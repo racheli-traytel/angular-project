@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AuthComponent } from '../components/auth/auth.component';
+import { ShowCourseComponent } from '../components/show-course/show-course.component';
 
 
 @Component({

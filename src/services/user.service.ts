@@ -11,13 +11,11 @@ export class UserService {
   constructor(private http: HttpClient) { }
  isTeacher:boolean=false
 
-  // פונקציה לרישום משתמש
   register(name: string, email: string, password: string, role: string): Observable<any> {
     const user = { name, email, password, role };
     return this.http.post(`${this.apiUrl}/api/auth/register` , user);
   }
 
-  // פונקציה להתחברות (לוגין)
   login(email: string, password: string): Observable<any> {
     const credentials = { email, password };
     return this.http.post(`${this.apiUrl}/api/auth/login` , credentials);

@@ -59,8 +59,14 @@ export class RegisterComponent implements OnInit{
           this.userService.register(name, email, password, role).subscribe({
             next: (response) => {
               // במקרה של הצלחה
-              console.log('User registered successfully', response);
+              if(role=='teacher')
+                this.userService.isTeacher=true
+              console.log('User registered successfully',response);
+              sessionStorage.setItem('token', response.token);
+              sessionStorage.setItem('userId', response.userId);
               this.dialogRef.close(); // סוגר את הדיאלוג
+              this.router.navigate(['/home']);
+
             },
             error: (err) => {
               // במקרה של שגיאה, נבדוק את קוד השגיאה

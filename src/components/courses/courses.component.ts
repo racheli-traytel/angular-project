@@ -3,32 +3,29 @@ import { CoursesService } from '../../services/courses.service';
 import { Course } from '../../models/Cours';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { DCourseDirective } from '../../directives/d-course.directive';
+import { MatIconModule } from '@angular/material/icon';
+import { UserService } from '../../services/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AditCourseComponent } from '../adit-course/adit-course.component';
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule],
+  imports: [RouterOutlet,MatCardModule, MatButtonModule,RouterLinkActive, RouterLink,DCourseDirective,MatButtonModule, MatIconModule],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.css'
 })
 export class CoursesComponent implements OnInit{
-constructor(private courseService:CoursesService){}
+  isteacher!:boolean
+constructor(    private dialog: MatDialog,
+  private courseService:CoursesService,private userService:UserService){
+  this.isteacher=userService.isTeacher
+}
+
 courses:Course[]=[]
 ngOnInit(): void {
-  const title = 'Angular Basics';
-  const description = 'Introduction to Angular 17';
 
-  // this.courseService.addCourse(title, description).subscribe({
-  //   next: (response) => {
-  //     console.log(response.message);
-  //     alert('Course added successfully!');
-  //   },
-  //   error: (err) => {
-  //     console.error('Error adding course', err);
-  //     alert('Failed to add course');
-  //   }
-  // });
-
-  
   this.courseService.getCourses().subscribe({
     next: (data) => {
       this.courses = data;
@@ -39,9 +36,36 @@ ngOnInit(): void {
       console.error('Error fetching courses:', error);
     }
   });
-
-
-
 }
+deleteCourse(id:string){
+    this.courseService.deleteCourse(id).subscribe(
+      (response) => {
+        console.log('Course deleted successfully:', response);
+        this.courses = this.courses.filter(course => course.id !== id);
 
+      },
+      (error) => {
+        console.error('Error deleting course:', error);
+      }
+    );
+  }
+
+
+  editCourse(course: Course): void {
+    const dialogRef = this.dialog.open(AditCourseComponent, {
+      data: { course }, // שולחים את הקורס למודל
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Course was updated successfully!');
+        this.getCourses(); // רענון קורסים
+      }
+    });
+  }
+  getCourses(): void {
+    this.courseService.getCourses().subscribe(data => {
+      this.courses = data;
+    });
+  }
 }

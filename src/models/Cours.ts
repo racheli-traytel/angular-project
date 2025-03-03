@@ -1,8 +1,10 @@
 export class Course{
     constructor(
-       public title:String,
-       public description:String,
-       public teacherId:Number,
- 
+       public id:string,
+       public title:string,
+       public description:string,
+       public teacherId:number,
     ){}
 }
+
+

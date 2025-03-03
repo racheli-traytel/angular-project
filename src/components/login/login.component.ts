@@ -49,15 +49,16 @@ export class LoginComponent implements OnInit {
 
       this.userservice.login(email, password).subscribe({
         next: (response) => {
-          if(response.role=='Teacher')
+          if(response.role=='teacher')
             this.userservice.isTeacher=true
           console.log( this.userservice.isTeacher);
           
           console.log('User logged in successfully', response);
           sessionStorage.setItem('token', response.token);
-          
+          sessionStorage.setItem('userId', response.userId);
+
           this.dialogRef.close();
-          this.router.navigate(['/courses']);
+          this.router.navigate(['/home']);
         },
         error: (err) => {
           // עדכון השגיאה
