@@ -8,7 +8,7 @@
         @if(role=='student')
         {
         <div class="top-right-buttons">
-          @if(!isRoled(course.id))
+          @if(!isEnoled(course.id))
           {
           <button class="icon-button" (click)="enroll(course.id)">
             <mat-icon>person_add</mat-icon><span class="button-text-small">Enroll</span> 

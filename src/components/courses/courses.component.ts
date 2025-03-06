@@ -38,7 +38,6 @@ ngOnInit(): void {
   })
   this.loadCoursesByStudent()
   console.log('this.studentCourse',this.studentCourse);
-  
 }
 deleteCourse(id:string){
     this.courseService.deleteCourse(id).subscribe(
@@ -85,9 +84,10 @@ deleteCourse(id:string){
       });
     }
   }
-  isRoled(courseId: string): boolean {
+  isEnoled(courseId: string): boolean {
     return this.studentCourse.some(course => course.id === courseId);
   }
+  
   enroll(courseId: string) 
   {
     const userId = sessionStorage.getItem('userId');

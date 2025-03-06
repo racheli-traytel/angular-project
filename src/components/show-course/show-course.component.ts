@@ -23,6 +23,8 @@ export class ShowCourseComponent implements OnInit {
   courseId: string = '';
   course!: Course;
   lessons: lesson[] = [];  
+  role:string= sessionStorage.getItem('role')||''
+
   constructor(
      private dialog: MatDialog,
     private activatedRoute: ActivatedRoute,

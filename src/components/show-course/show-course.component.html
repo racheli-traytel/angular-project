@@ -11,7 +11,7 @@
           <mat-card-header>
             <mat-card-title>{{ lesson.title }}</mat-card-title>
             <span class="lesson-actions">
-              <!-- כפתור עריכה -->
+             @if(role=='teacher'){
               <button mat-icon-button (click)="editLesson(lesson)">
                 <mat-icon>edit</mat-icon>
               </button>
@@ -19,6 +19,7 @@
               <button mat-icon-button color="warn" (click)="deleteLesson(lesson.id)">
                 <mat-icon>delete</mat-icon>
               </button>
+            }
             </span>
           </mat-card-header>
           <mat-card-content>
@@ -27,10 +28,11 @@
         </mat-card>
       }
 
-      <!-- כפתור "הוסף שיעור" -->
+     @if(role=='teacher'){
       <button mat-raised-button class="add-lesson-btn" [routerLink]="['/home','addLesson',courseId]" routerLinkActive="button-active">
         <mat-icon>add</mat-icon> הוסף שיעור
       </button>
+    }
     </div>
   </mat-card>
 </div>

@@ -24,59 +24,42 @@ export class CoursesService {
     const teacherId: number = userId ? +userId : 0; 
     console.log(teacherId);
     const body = { title, description,teacherId };
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`, // הוספת טוקן אם נדרש
-    });
-    console.log(sessionStorage.getItem('token')); 
-    return this.http.post<any>(this.apiUrl, body,{headers});
+
+    return this.http.post<any>(this.apiUrl, body,);
   }
   getCourseById(id: string): Observable<Course> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`, // הוספת טוקן אם נדרש
-    });
 
-    return this.http.get<Course>(`${this.apiUrl}/${id}`, { headers });
+    return this.http.get<Course>(`${this.apiUrl}/${id}`);
   }
  // פונקציה לעדכון קורס לפי ID
  updateCourse(id: string, updates: any): Observable<any> {
-  const headers = new HttpHeaders({
-    'Authorization': `Bearer ${sessionStorage.getItem('token')}`, // הוספת טוקן אם נדרש
-  });
-  return this.http.put(`${this.apiUrl}/${id}`, updates,{headers})
+
+  return this.http.put(`${this.apiUrl}/${id}`, updates)
 }
 
 // פונקציה למחיקת קורס לפי ID
 deleteCourse(id: string): Observable<any> {
-  const headers = new HttpHeaders({
-    'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-  });
-  return this.http.delete(`${this.apiUrl}/${id}`, {headers});
+
+  return this.http.delete(`${this.apiUrl}/${id}`);
 }
 
   // הוספת סטודנט לקורס
   enrollStudent(courseId: string, userId: string): Observable<any> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`, // הוספת טוקן אם נדרש
-    });  
-    return this.http.post(`${this.apiUrl}/${courseId}/enroll`,{userId},{headers});
+
+   return this.http.post(`${this.apiUrl}/${courseId}/enroll`,{userId});
   }
 
 
   // הסרת סטודנט מקורס
   unenrollStudent(courseId: string, userId: string): Observable<any> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`, // הוספת טוקן אם נדרש
-    });
-    return this.http.delete(`${this.apiUrl}/${courseId}/unenroll`,{headers, 
+
+    return this.http.delete(`${this.apiUrl}/${courseId}/unenroll`,{
       body: { userId }});
   }
 
   // שליפת כל הקורסים של סטודנט מסוים
-  getStudentCourses(studentId: string): Observable<any> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${sessionStorage.getItem('token')}`, // הוספת טוקן אם נדרש
-    });
-    return this.http.get<any>(`${this.apiUrl}/student/${studentId}`,{headers});
+  getStudentCourses(studentId: string):Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/student/${studentId}`);
   }
 }
 

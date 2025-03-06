@@ -4,13 +4,20 @@ import { Course } from '../../models/Cours';
 import { CoursesService } from '../../services/courses.service';
 import { Router } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatError, MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-adit-course',
   standalone: true,
   imports: [MatDialogModule,
-    ReactiveFormsModule,MatFormFieldModule,
+    ReactiveFormsModule,MatFormFieldModule,MatDialogModule,
+    MatInputModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatIconModule,MatError
     ],
   templateUrl: './adit-course.component.html',
   styleUrl: './adit-course.component.css'
