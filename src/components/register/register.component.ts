@@ -59,8 +59,7 @@ export class RegisterComponent implements OnInit{
           this.userService.register(name, email, password, role).subscribe({
             next: (response) => {
               // במקרה של הצלחה
-              if(role=='teacher')
-                this.userService.isTeacher=true
+              sessionStorage.setItem('role',role)
               console.log('User registered successfully',response);
               sessionStorage.setItem('token', response.token);
               sessionStorage.setItem('userId', response.userId);

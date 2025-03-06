@@ -4,6 +4,5 @@ import { UserService } from '../services/user.service';
 
 export const teacherGuard: CanActivateFn = (route, state) => {
   const userservice=inject(UserService)
-  // return userservice.isTeacher;
-  return true;
+  return sessionStorage.getItem('role')=='teacher'
 };

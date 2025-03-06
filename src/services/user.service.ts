@@ -9,8 +9,6 @@ export class UserService {
   private apiUrl = 'http://localhost:3000'; // כאן תשים את ה-URL של ה-API שלך
 
   constructor(private http: HttpClient) { }
- isTeacher:boolean=false
-
   register(name: string, email: string, password: string, role: string): Observable<any> {
     const user = { name, email, password, role };
     return this.http.post(`${this.apiUrl}/api/auth/register` , user);

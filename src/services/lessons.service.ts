@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { lesson } from '../models/lessons';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,10 @@ export class LessonsService {
     });
   }
 
-  // שליפת כל השיעורים של קורס מסוים
-  getLessonsByCourse(courseId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${courseId}/lessons`, { headers: this.getAuthHeaders() });
+  // Get all lessons by course ID
+  getLessonsByCourseId(courseId: string): Observable<any> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<any>(`${this.apiUrl}/${courseId}/lessons`, { headers });
   }
 
   // שליפת שיעור לפי ID
@@ -32,13 +34,13 @@ export class LessonsService {
   }
 
   // עדכון שיעור לפי ID
-  updateLesson(id: string, updates: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}/lessons`, updates, { headers: this.getAuthHeaders() });
+  updateLesson(id: number,courseId:string, updates: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${courseId}/lessons/${id}`, updates, { headers: this.getAuthHeaders() });
   }
 
   // מחיקת שיעור לפי ID
-  deleteLesson(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}/lessons`, { headers: this.getAuthHeaders() });
+  deleteLesson(id: number,courseId:string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${courseId}/lessons/${id}`, { headers: this.getAuthHeaders() });
   }
 }
 

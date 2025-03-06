@@ -48,7 +48,6 @@ export class AditCourseComponent{
       this.coursesService.updateCourse(this.data.course.id, updatedCourse).subscribe({
         next: (response) => {
           console.log('Course updated successfully:', response);
-          alert('Course updated successfully!');
           this.dialogRef.close(true);
         },
         error: (err) => {

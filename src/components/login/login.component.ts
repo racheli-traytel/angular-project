@@ -49,10 +49,7 @@ export class LoginComponent implements OnInit {
 
       this.userservice.login(email, password).subscribe({
         next: (response) => {
-          if(response.role=='teacher')
-            this.userservice.isTeacher=true
-          console.log( this.userservice.isTeacher);
-          
+          sessionStorage.setItem('role',response.role)
           console.log('User logged in successfully', response);
           sessionStorage.setItem('token', response.token);
           sessionStorage.setItem('userId', response.userId);

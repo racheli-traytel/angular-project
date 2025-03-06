@@ -6,6 +6,7 @@ import { AddCourseComponent } from '../components/add-course/add-course.componen
 import { teacherGuard } from '../guard/teacher.guard';
 import { ShowCourseComponent } from '../components/show-course/show-course.component';
 import { HomeComponent } from '../components/home/home.component';
+import { AddLessonComponent } from '../components/add-lesson/add-lesson.component';
 
 export const routes: Routes = [
 {path:'',component:AuthComponent},
@@ -14,6 +15,9 @@ export const routes: Routes = [
         {path:"courses",component:CoursesComponent},
         { path:'addCourse',component:AddCourseComponent,canActivate:[teacherGuard]},
         { path:':id',component:ShowCourseComponent,},
+        {path:'addLesson/:id',component:AddLessonComponent}
+           
+        
     ]
 }
 

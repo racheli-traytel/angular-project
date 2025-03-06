@@ -1,7 +1,8 @@
 export class lesson{
     constructor(
+    public id:number,
        public title:string,
        public content:string,
-       public coursId:string,
+       public courseId:string,
     ){}
 }

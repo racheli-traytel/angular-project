@@ -49,7 +49,6 @@ export class AddCourseComponent implements OnInit {
         this.courseService.addCourse(title, description).subscribe({
     next: (response) => {
       console.log(response.message);
-      alert('Course added successfully!');
       this.router.navigate(['/home']);
 
     },

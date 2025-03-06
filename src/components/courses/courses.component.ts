@@ -17,25 +17,28 @@ import { AditCourseComponent } from '../adit-course/adit-course.component';
   styleUrl: './courses.component.css'
 })
 export class CoursesComponent implements OnInit{
-  isteacher!:boolean
+  role!:string
 constructor(    private dialog: MatDialog,
   private courseService:CoursesService,private userService:UserService){
-  this.isteacher=userService.isTeacher
 }
 
 courses:Course[]=[]
+studentCourse:Course[]=[]
 ngOnInit(): void {
-
+ this.role= sessionStorage.getItem('role')||''
   this.courseService.getCourses().subscribe({
-    next: (data) => {
+    next: (data) =>
+    {
       this.courses = data;
-      console.log(this.courses);
-      
+      console.log(this.courses); 
     },
     error: (error) => {
       console.error('Error fetching courses:', error);
     }
-  });
+  })
+  this.loadCoursesByStudent()
+  console.log('this.studentCourse',this.studentCourse);
+  
 }
 deleteCourse(id:string){
     this.courseService.deleteCourse(id).subscribe(
@@ -68,4 +71,61 @@ deleteCourse(id:string){
       this.courses = data;
     });
   }
+
+  loadCoursesByStudent(): void {
+    const studentId = sessionStorage.getItem('userId'); 
+    if (studentId) {
+      this.courseService.getStudentCourses(studentId).subscribe({
+        next: (data) => {
+          this.studentCourse = data;
+        },
+        error: (error) => {
+          console.error('Error fetching student courses:', error);
+        }
+      });
+    }
+  }
+  isRoled(courseId: string): boolean {
+    return this.studentCourse.some(course => course.id === courseId);
+  }
+  enroll(courseId: string) 
+  {
+    const userId = sessionStorage.getItem('userId');
+    if (!userId) 
+    {
+      console.error('User not logged in.');
+      return;
+    }
+  console.log(userId,'userId');
+  console.log(courseId,'courseId');
+    this.courseService.enrollStudent(courseId,userId).subscribe({
+      next: () => {
+        console.log('Student enrolled successfully');
+        this.loadCoursesByStudent(); // רענון רשימת הקורסים של הסטודנט
+      },
+      error: (error) => {
+      console.error('Error enrolling in course:', error);
+      }
+    });
+  }
+  
+  unenroll(courseId: string) {
+    const userId = sessionStorage.getItem('userId');
+    if (!userId) {
+      console.error('User not logged in.');
+      return;
+    }
+  
+    this.courseService.unenrollStudent(courseId, userId).subscribe({
+      next: () => {
+        console.log('Student unenrolled successfully');
+        this.loadCoursesByStudent(); // רענון רשימת הקורסים של הסטודנט
+
+      },
+      error: (error) => {
+        console.error('Error unenrolling from course:', error);
+      }
+    });
+  }
+  
 }

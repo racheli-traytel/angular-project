@@ -93,3 +93,25 @@
   .icon-button:hover mat-icon {
     color: #ff7eb9;
   }
+  .top-right-buttons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 8px;
+  }
+  
+  .icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .icon-button mat-icon {
+    color: black;
+    font-size: 24px;
+  }
+  
+  .icon-button:hover mat-icon {
+    color: black;
+  }
