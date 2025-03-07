@@ -52,15 +52,12 @@ export class AddLessonComponent {
 
      this.lessonService.createLesson(this.courseId,title, content,).subscribe({
     next: (response) => {      
-      alert('Course added successfully!');
-
       console.log(response);
       
       this.router.navigate([`/home/${this.courseId}`]);
     },
     error: (err) => {
       console.error('Error adding course', err);
-      alert('Failed to add lesson');
     }
   });
 

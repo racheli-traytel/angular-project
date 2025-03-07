@@ -54,12 +54,10 @@ ngOnInit(): void {
       this.lessonService.updateLesson(this.data.lesson.id,this.data.lesson.courseId, updatedLesson).subscribe({
         next: (response) => {
           console.log('Course updated successfully:', response);
-          alert('lesson updated successfully!');
           this.dialogRef.close(true);
         },
         error: (err) => {
           console.error('Error updating course:', err);
-          alert('Failed to update lesson');
         }
       });
     }

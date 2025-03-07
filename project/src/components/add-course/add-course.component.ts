@@ -45,8 +45,7 @@ export class AddCourseComponent implements OnInit {
     if (this.addCourseForm.valid) {
       const course: Course = this.addCourseForm.value.courseGroup;
       const {title, description}=course
-  
-        this.courseService.addCourse(title, description).subscribe({
+    this.courseService.addCourse(title, description).subscribe({
     next: (response) => {
       console.log(response.message);
       this.router.navigate(['/home']);
@@ -54,7 +53,6 @@ export class AddCourseComponent implements OnInit {
     },
     error: (err) => {
       console.error('Error adding course', err);
-      alert('Failed to add course');
     }
   });
 
